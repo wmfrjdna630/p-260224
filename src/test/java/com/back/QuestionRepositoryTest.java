@@ -5,6 +5,7 @@ import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.ActiveProfiles;
+import org.springframework.transaction.annotation.Transactional;
 
 
 import java.util.List;
@@ -86,6 +87,37 @@ public class QuestionRepositoryTest {
         Question q1_2 = questionRepository.findById(1).get();
 
         assertThat(q1_2.getSubject()).isEqualTo("sbb가 무엇인가요? - 수정");
+    }
+
+    @Test
+    @DisplayName("질문 삭제")
+    void t5(){
+        Question q1 = questionRepository.findById(1).get();
+        questionRepository.delete(q1);
+
+        assertThat(questionRepository.count()).isEqualTo(1);
+    }
+
+    @Test
+    @DisplayName("답글 저장")
+    @Transactional
+    void t6(){
+        Question q1 = questionRepository.findById(2).get();
+
+        Answer a1 = new Answer();
+        a1.setContent("답글 1");
+
+//        q1.getAnswerList().add(a1);
+//        questionRepository.save(q1);
+
+        a1.setQuestion(q1);
+        answerRepository.save(a1);
+        answerRepository.flush();
+
+        Answer foundedAnswwer = answerRepository.findById(1).get();
+
+        assertThat(foundedAnswwer.getId()).isEqualTo(1);
+        assertThat(foundedAnswwer.getContent()).isEqualTo("답글 1");
     }
 
 }
