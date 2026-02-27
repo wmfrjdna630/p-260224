@@ -1,11 +1,10 @@
 package com.back;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
+import jakarta.persistence.*;
+import lombok.Getter;
 
 @Entity
+@Getter
 public class Question {
 
     @Id
@@ -14,6 +13,5 @@ public class Question {
 
     private String subject;
     private String content;
-
 
 }
