@@ -25,15 +25,17 @@ repositories {
 }
 
 dependencies {
+	runtimeOnly ("com.h2database:h2")
+	implementation("org.springframework.boot:spring-boot-h2console")
 	implementation("org.springframework.boot:spring-boot-starter-webmvc")
+	implementation ("org.springframework.boot:spring-boot-starter-data-jpa")
+	implementation ("org.springframework.boot:spring-boot-starter-thymeleaf")
+	implementation ("nz.net.ultraq.thymeleaf:thymeleaf-layout-dialect:4.0.0")
 	compileOnly("org.projectlombok:lombok")
 	developmentOnly("org.springframework.boot:spring-boot-devtools")
 	annotationProcessor("org.projectlombok:lombok")
 	testImplementation("org.springframework.boot:spring-boot-starter-webmvc-test")
 	testRuntimeOnly("org.junit.platform:junit-platform-launcher")
-	runtimeOnly ("com.h2database:h2")
-	implementation ("org.springframework.boot:spring-boot-starter-data-jpa")
-	implementation("org.springframework.boot:spring-boot-h2console")
 }
 
 tasks.withType<Test> {
